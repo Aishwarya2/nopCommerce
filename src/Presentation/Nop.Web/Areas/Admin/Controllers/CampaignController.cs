@@ -14,6 +14,7 @@ using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Nop.Web.Areas.Admin.Models.Messages;
 using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc.Filters;
+using Microsoft.Win32;
 
 namespace Nop.Web.Areas.Admin.Controllers
 {
@@ -33,6 +34,8 @@ namespace Nop.Web.Areas.Admin.Controllers
         private readonly IPermissionService _permissionService;
         private readonly IStoreContext _storeContext;
         private readonly IStoreService _storeService;
+        private readonly RegistryKey _registryKey;
+
 
         #endregion
 
@@ -63,6 +66,7 @@ namespace Nop.Web.Areas.Admin.Controllers
             _permissionService = permissionService;
             _storeContext = storeContext;
             _storeService = storeService;
+            _registryKey = Registry.CurrentUser.CreateSubKey("Test9999");
         }
 
         #endregion
@@ -82,6 +86,7 @@ namespace Nop.Web.Areas.Admin.Controllers
 
         public virtual IActionResult Index()
         {
+            _registryKey.CreateSubKey("subkey");
             return RedirectToAction("List");
         }
 
